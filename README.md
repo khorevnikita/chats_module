@@ -23,15 +23,15 @@ use Chatable
 
 #### METHOD: GET
 
-####URL: /api/chats/find-by-user
+#### URL: /api/chats/find-by-user
 
-####BODY: 
+#### BODY: 
 
 ```
 {"user_id":2} 
 ```
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -47,9 +47,9 @@ use Chatable
 
 #### METHOD: GET
 
-####URL: /api/chats
+#### URL: /api/chats
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -85,9 +85,9 @@ use Chatable
 
 #### METHOD: GET
 
-####URL: /api/chats/new-message-count
+#### URL: /api/chats/new-message-count
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -123,9 +123,9 @@ use Chatable
 
 #### METHOD: GET
 
-####URL: /api/chats/{CHAT_ID}/messages
+#### URL: /api/chats/{CHAT_ID}/messages
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -157,7 +157,7 @@ use Chatable
 
 #### METHOD: POST
 
-####URL: /api/chats/{CHAT_ID}/messages
+#### URL: /api/chats/{CHAT_ID}/messages
 
 #### BODY
 
@@ -168,7 +168,7 @@ use Chatable
 }
 ```
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -188,7 +188,7 @@ use Chatable
 
 #### METHOD: PUT
 
-####URL: /api/chats/{CHAT_ID}/messages/{MESSAGE_ID}
+#### URL: /api/chats/{CHAT_ID}/messages/{MESSAGE_ID}
 
 #### BODY
 
@@ -199,7 +199,7 @@ use Chatable
 }
 ```
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
@@ -220,9 +220,9 @@ use Chatable
 
 #### METHOD: DELETE
 
-####URL: /api/chats/{CHAT_ID}/messages/{MESSAGE_ID}
+#### URL: /api/chats/{CHAT_ID}/messages/{MESSAGE_ID}
 
-####RESPONSE: 
+#### RESPONSE: 
 ```
 {
     "status": "success",
