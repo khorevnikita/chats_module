@@ -2,7 +2,7 @@
 
 namespace Khonik\Chats\Controllers;
 
-use App\Http\Requests\Chat\CreateChatRequest;
+use Khonik\Chats\Requests\Chat\CreateChatRequest;
 use Khonik\Chats\Models\Chat;
 use Khonik\Chats\Models\Message;
 use App\Models\User;
