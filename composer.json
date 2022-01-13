@@ -10,6 +10,9 @@
         }
     ],
     "autoload": {
+        "psr-4": {
+            "Khonik\\Chats\\": "src/"
+        },
         "classmap": ["src/Providers","src/Models","src/Policies","src/Controllers"]
     },
     "require": {
