@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-        "classmap": ["src/Models","src/Policies","src/Controllers"]
+        "classmap": ["src/Providers","src/Models","src/Policies","src/Controllers"]
     },
     "require": {
         "php": "^7.3|^8.0"
