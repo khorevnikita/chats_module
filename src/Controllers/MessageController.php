@@ -21,8 +21,10 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Chat $chat, MessageListRequest $request): JsonResponse
+    public function index($chat_id, MessageListRequest $request): JsonResponse
     {
+        $chat = Chat::findOrFail($chat_id);
+
         $take = Message::$PAGINATION_SIZE;
         $page = (int)$request->page ?: 1;
         $skip = ($page - 1) * $take;
@@ -58,10 +60,10 @@ class MessageController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Chat $chat, MessageRequest $request): JsonResponse
+    public function store($chat_id, MessageRequest $request): JsonResponse
     {
         $message = new Message([
-            'chat_id' => $chat->id,
+            'chat_id' => $chat_id,
         ]);
         $message->fill($request->all());
         $message->save();
