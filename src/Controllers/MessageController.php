@@ -2,8 +2,8 @@
 
 namespace Khonik\Chats\Controllers;
 
-use App\Http\Requests\Message\MessageListRequest;
-use App\Http\Requests\Message\MessageRequest;
+use Khonik\Chats\Requests\Message\MessageListRequest;
+use Khonik\Chats\Requests\Message\MessageRequest;
 use Khonik\Chats\Models\Chat;
 use Khonik\Chats\Models\Message;
 use Illuminate\Http\JsonResponse;
