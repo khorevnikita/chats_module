@@ -217,9 +217,12 @@ class MessageController extends Controller
      */
     public function destroy($chat_id, $message_id): JsonResponse
     {
-        $message = Message::where("chat_id", $chat_id)->where("id", $message_id)->firstOrFail();
+        $message = Message::where("chat_id", $chat_id)->where("id", $message_id)->first();
+        if(!$message){
+            abort(404);
+        }
         $this->authorize('delete', $message);
-        $message->delete();
+        Message::where("id",$message->id)->delete();
         return response()->json([
             'status' => 'success',
         ]);
