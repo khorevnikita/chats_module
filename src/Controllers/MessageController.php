@@ -11,10 +11,6 @@ use App\Http\Controllers\Controller;
 
 class MessageController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Message::class, 'message');
-    }
 
     /**
      * @OA\Get(
@@ -51,7 +47,10 @@ class MessageController extends Controller
      */
     public function index($chat_id, MessageListRequest $request): JsonResponse
     {
+        $this->authorize('viewAny', Message::class);
+
         $chat = Chat::findOrFail($chat_id);
+
 
         $take = Message::$PAGINATION_SIZE;
         $page = (int)$request->page ?: 1;
@@ -97,8 +96,8 @@ class MessageController extends Controller
      *       ),
      *      @OA\RequestBody(
      *          @OA\JsonContent(
-                    @OA\Property(property="type",type="string", example="text"),
-                    @OA\Property(property="body",type="string", example="Hello here!"),
+    @OA\Property(property="type",type="string", example="text"),
+    @OA\Property(property="body",type="string", example="Hello here!"),
      *         ),
      *      ),
      *      @OA\Response(
@@ -114,6 +113,8 @@ class MessageController extends Controller
      */
     public function store($chat_id, MessageRequest $request): JsonResponse
     {
+        $this->authorize('create', Message::class);
+
         $message = new Message([
             'chat_id' => $chat_id,
         ]);
@@ -185,8 +186,10 @@ class MessageController extends Controller
      *  ),
      * )
      */
-    public function update(MessageRequest $request, Chat $chat, Message $message): JsonResponse
+    public function update(MessageRequest $request, $chat_id, $message_id): JsonResponse
     {
+        $message = Message::where("chat_id", $chat_id)->where("id", $message_id)->firstOrFail();
+        $this->authorize('update', $message);
         $message->fill($request->all());
         $message->save();
         return response()->json([
@@ -212,8 +215,10 @@ class MessageController extends Controller
      *     ),
      * )
      */
-    public function destroy(Chat $chat,Message $message): JsonResponse
+    public function destroy($chat_id, $message_id): JsonResponse
     {
+        $message = Message::where("chat_id", $chat_id)->where("id", $message_id)->firstOrFail();
+        $this->authorize('delete', $message);
         $message->delete();
         return response()->json([
             'status' => 'success',
