@@ -2,6 +2,10 @@
 
 namespace Khonik\Chats\Models;
 
+use App\Events\MessageCreated;
+use App\Events\MessageDeleted;
+use App\Events\MessageUpdated;
+use App\Events\NewMessagesCountUpdated;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,14 +45,18 @@ class Message extends Model
 
         self::created(function ($model) {
             // Fire to channel
+            broadcast(new MessageCreated($model))->toOthers();
+            broadcast(new NewMessagesCountUpdated($model))->toOthers();
         });
 
         self::updated(function ($model) {
             // Fire to channel
+            broadcast(new MessageUpdated($model))->toOthers();
         });
 
         self::deleted(function ($model) {
             // Fire to channel
+            broadcast(new MessageDeleted($model))->toOthers();
         });
     }
 
