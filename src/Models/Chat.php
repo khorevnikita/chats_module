@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+
+ * @OA\Schema(
+ * @OA\Xml(name="Chat"),
+ * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="created_at", type="string", format="date-time",example="2019-02-25 12:59:20"),
+ * @OA\Property(property="updated_at", type="string", format="date-time",example="2019-02-25 12:59:20"),
+ * @OA\Property(property="target_user", type="object", ref="#/components/schemas/User"),
+ * @OA\Property(property="last_message", type="object", ref="#/components/schemas/Message")
+ * @OA\Property(property="new_messages_count", type="integer", example=3)
+ * )
+ *
+ * Class Chat
+ *
+ */
 class Chat extends Model
 {
     use HasFactory;

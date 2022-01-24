@@ -7,6 +7,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+
+ * @OA\Schema(
+ * @OA\Xml(name="Message"),
+ * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="chat_id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="user_id", type="integer", readOnly="true", example="1"),
+ * @OA\Property(property="type", type="string", readOnly="true", example="text"),
+ * @OA\Property(property="body", type="string", readOnly="true", example="Hello, world!"),
+ * @OA\Property(property="created_at", type="string", format="date-time",example="2019-02-25 12:59:20"),
+ * @OA\Property(property="updated_at", type="string", format="date-time",example="2019-02-25 12:59:20"),
+ * @OA\Property(property="author", type="object", ref="#/components/schemas/User"),
+ * )
+ *
+ * Class Message
+ *
+ */
 class Message extends Model
 {
     use HasFactory;
