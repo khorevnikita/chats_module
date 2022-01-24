@@ -43,6 +43,7 @@ class NewMessagesCountUpdated
             ->pluck("user_id");
 
         return $userIds->map(function ($user_id) {
+            $this->new_messages_count = Message::getNewMessagesCount($user_id);
             return new PrivateChannel("user-$user_id");
         })->toArray();
     }

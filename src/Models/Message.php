@@ -70,10 +70,12 @@ class Message extends Model
         return $this->belongsTo(User::class, 'user_id')->select(User::$PUBLIC_INFO);
     }
 
-    public static function getNewMessagesCount(): int
+    public static function getNewMessagesCount($user_id = null): int
     {
-        $auth_id = auth()->id();
-        $data = DB::selectOne("select count(*) as count from chat_user cu join messages m on m.chat_id = cu.chat_id and m.created_at > cu.last_opened_at where cu.user_id = $auth_id ");
+        if(!$user_id) {
+            $user_id = auth()->id();
+        }
+        $data = DB::selectOne("select count(*) as count from chat_user cu join messages m on m.chat_id = cu.chat_id and m.created_at > cu.last_opened_at where cu.user_id = $user_id ");
         return $data->count;
     }
 }
