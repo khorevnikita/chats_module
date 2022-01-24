@@ -222,7 +222,7 @@ class MessageController extends Controller
             abort(404);
         }
         $this->authorize('delete', $message);
-        Message::where("id",$message->id)->delete();
+        $message->delete();
         return response()->json([
             'status' => 'success',
         ]);

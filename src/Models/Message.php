@@ -54,7 +54,7 @@ class Message extends Model
             broadcast(new MessageUpdated($model))->toOthers();
         });
 
-        self::deleted(function ($model) {
+        self::deleting(function ($model) {
             // Fire to channel
             broadcast(new MessageDeleted($model))->toOthers();
         });
