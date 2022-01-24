@@ -18,7 +18,8 @@
       "src/Models",
       "src/Policies",
       "src/Controllers",
-      "src/Traits"
+      "src/Traits",
+      "src/Events"
     ]
   },
   "require": {
