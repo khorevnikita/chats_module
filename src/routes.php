@@ -9,7 +9,7 @@ Route::middleware("auth")->prefix("api")->group(function(){
         Route::get("/", [ChatController::class, 'myChats']);
         Route::get("/new-message-count", [ChatController::class, 'newMessageCount']);
         Route::get("find-by-user", [ChatController::class, 'findOrCreateChat']);
-        Route::delete(":id",[ChatController::class,'destroy']);
+        Route::delete("{chat_id}",[ChatController::class,'destroy']);
     });
     Route::resource("chats.messages", MessageController::class);
 });
