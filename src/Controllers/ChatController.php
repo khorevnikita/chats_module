@@ -113,6 +113,7 @@ class ChatController extends Controller
     public function findOrCreateChat(CreateChatRequest $request): JsonResponse
     {
         $chat = Chat::findOrCreateByUser($request->user_id);
+        $chat->load('targetUser');
         return response()->json([
             'status' => 'success',
             'chat' => $chat
