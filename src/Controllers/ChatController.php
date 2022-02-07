@@ -2,6 +2,7 @@
 
 namespace Khonik\Chats\Controllers;
 
+use Khonik\Chats\Models\ChatUser;
 use Khonik\Chats\Requests\Chat\CreateChatRequest;
 use Khonik\Chats\Models\Chat;
 use Khonik\Chats\Models\Message;
@@ -68,7 +69,6 @@ class ChatController extends Controller
      *      summary="new messages count for all chats",
      *      description="Total count of unread messages",
      *      security={ {"sanctum": {} }},
-
      *
      *      @OA\Response(
      *         response=200,
@@ -97,7 +97,6 @@ class ChatController extends Controller
      *      summary="get chat id by user id",
      *      description="Find a chat with user",
      *      security={ {"sanctum": {} }},
-
      *
      *      @OA\Response(
      *         response=200,
@@ -117,6 +116,36 @@ class ChatController extends Controller
         return response()->json([
             'status' => 'success',
             'chat' => $chat
+        ]);
+    }
+
+    /**
+     * @OA\Delete (
+     *      path="/api/chats/{chat_id}",
+     *      tags={"Chat"},
+     *      summary="delete a chat (clear all history)",
+     *      description="delete chat with",
+     *      @OA\Parameter( in="query", name="chat_id", example="1"),
+     *      @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="success"),
+     *        )
+     *     ),
+     * )
+     */
+    public function destroy($chat_id)
+    {
+        $perm = ChatUser::where("chat_id", $chat_id)
+            ->where("user_id", auth()->id())
+            ->first();
+        if (!$perm) {
+            abort(403);
+        }
+        Chat::where("id", $chat_id)->delete();
+        return response()->json([
+            'status' => 'success'
         ]);
     }
 }
