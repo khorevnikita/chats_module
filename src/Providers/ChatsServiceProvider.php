@@ -25,6 +25,7 @@ class ChatsServiceProvider extends ServiceProvider
     {
         $this->publishMigrations();
         include __DIR__ . '/../routes.php';
+        include __DIR__ . '/../channels.php';
     }
 
     private function publishMigrations()

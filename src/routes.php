@@ -5,6 +5,7 @@ use Khonik\Chats\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware("auth")->prefix("api")->group(function(){
+    Broadcast::routes();
     Route::prefix("chats")->group(function () {
         Route::get("/", [ChatController::class, 'myChats']);
         Route::get("/new-message-count", [ChatController::class, 'newMessageCount']);
