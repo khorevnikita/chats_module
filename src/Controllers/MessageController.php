@@ -60,7 +60,10 @@ class MessageController extends Controller
 
         $total = $messages->count();
 
-        $messages = $messages->skip($skip)->take($take)->get();
+        $order = $request->sort_by ?: "created_at";
+        $dir = $request->sort_desc == 0 ? "ASC" : "DESC";
+
+        $messages = $messages->orderBy($order, $dir)->skip($skip)->take($take)->get();
 
         $chat->readAllMessages();
 
@@ -218,7 +221,7 @@ class MessageController extends Controller
     public function destroy($chat_id, $message_id): JsonResponse
     {
         $message = Message::where("chat_id", $chat_id)->where("id", $message_id)->first();
-        if(!$message){
+        if (!$message) {
             abort(404);
         }
         $this->authorize('delete', $message);
