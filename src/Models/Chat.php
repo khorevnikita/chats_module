@@ -123,4 +123,11 @@ class Chat extends Model
             }
         });
     }
+
+    public function scopeWhereTargetUserIdIn($query, $ids = [0])
+    {
+        return $query->whereHas("targetUser", function ($q) use ($ids) {
+            $q->whereIn("users.id", $ids);
+        });
+    }
 }

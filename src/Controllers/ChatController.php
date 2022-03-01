@@ -53,6 +53,11 @@ class ChatController extends Controller
             ->withCount("newMessages")
             ->whereTargetUser($request->search);
 
+        if ($request->only_friends) {
+            $friendIds = User::getFriendIds();
+            $chats = $chats->whereTargetUserIdIn($friendIds);
+        }
+
         $total = $chats->count();
 
         $chats = $chats->skip($skip)->take($take)->get();
