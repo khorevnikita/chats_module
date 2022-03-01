@@ -48,8 +48,10 @@ class ChatController extends Controller
 
         $user = User::find(auth()->id());
 
-        $chats = $user->chats()->with("targetUser", 'lastMessage', 'lastMessage.author')
-            ->withCount("newMessages");
+        $chats = $user->chats()
+            ->with("targetUser", 'lastMessage', 'lastMessage.author')
+            ->withCount("newMessages")
+            ->whereTargetUser($request->search);
 
         $total = $chats->count();
 

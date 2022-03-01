@@ -104,4 +104,23 @@ class Chat extends Model
             ->where("user_id", auth()->id())
             ->update(['last_opened_at' => Carbon::now()]);
     }
+
+    public function scopeWhereTargetUser($query, $needle)
+    {
+        if (!$needle) {
+            return $query;
+        }
+
+        return $query->whereHas("targetUser", function ($q) use ($needle) {
+            $model = new User();
+            $fillableProperties = $model->getFillable();
+            foreach ($fillableProperties as $k => $fillableProperty) {
+                if (!$k) {
+                    $q->where($fillableProperty, "like", "%$needle%");
+                } else {
+                    $q->orWhere($fillableProperty, "like", "%$needle%");
+                }
+            }
+        });
+    }
 }
