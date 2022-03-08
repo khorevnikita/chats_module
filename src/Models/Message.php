@@ -75,7 +75,7 @@ class Message extends Model
         if(!$user_id) {
             $user_id = auth()->id();
         }
-        $data = DB::selectOne("select count(*) as count from chat_user cu join messages m on m.chat_id = cu.chat_id and m.created_at > cu.last_opened_at where cu.user_id = $user_id ");
+        $data = DB::selectOne("select count(*) as count from chat_user cu join messages m on m.chat_id = cu.chat_id and case when cu.last_opened_at is null then 1 when cu.last_opened_at is not null then m.created_at > cu.last_opened_at end where cu.user_id = $user_id ");
         return $data->count;
     }
 }
