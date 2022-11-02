@@ -60,7 +60,7 @@ class ChatController extends Controller
 
         $total = $chats->count();
 
-        $chats = $chats->skip($skip)->take($take)->get();
+        $chats = $chats->orderBy('updated_at','desc')->skip($skip)->take($take)->get();
 
         return response()->json([
             'status' => 'success',

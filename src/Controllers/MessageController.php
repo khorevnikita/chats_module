@@ -124,6 +124,8 @@ class MessageController extends Controller
         $message->fill($request->all());
         $message->save();
 
+        Chat::where("id",$chat_id)->update(['updated_at'=>date("Y-m-d H:i:s")]);
+
         return response()->json([
             'status' => 'success',
             'message' => $message,
