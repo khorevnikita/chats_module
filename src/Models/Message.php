@@ -51,8 +51,9 @@ class Message extends Model
             $pushClassName = "Khonik\Notifications\Jobs\PushNotification";
             if (class_exists($pushClassName)) {
                 $chat = $model->chat;
-                $chat->users->where("id", "!=", $model->user_id)->each(function (User $user) use ($model,$pushClassName) {
-                    broadcast(new $pushClassName($user, config('app.name') , "$user->name отправил вам сообщение", "chat_$model->chat_id"));
+                $author = auth()->user();
+                $chat->users->where("id", "!=", $model->user_id)->each(function (User $user) use ($model,$pushClassName,$author) {
+                    broadcast(new $pushClassName($user, config('app.name') , "$author->name отправил вам сообщение", "chat_$model->chat_id"));
                 });
             }
         });
