@@ -52,7 +52,7 @@ class Message extends Model
             if (class_exists($pushClassName)) {
                 $chat = $model->chat;
                 $chat->users->where("id", "!=", $model->user_id)->each(function (User $user) use ($model,$pushClassName) {
-                    broadcast(new $pushClassName($user, "$user->name отправил вам сообщение", "", "chat_$model->chat_id"));
+                    broadcast(new $pushClassName($user, config('app.name') , "$user->name отправил вам сообщение", "chat_$model->chat_id"));
                 });
             }
         });
