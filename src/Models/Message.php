@@ -47,15 +47,6 @@ class Message extends Model
             // Fire to channel
             broadcast(new MessageCreated($model))->toOthers();
             broadcast(new NewMessagesCountUpdated($model))->toOthers();
-
-            $pushClassName = "Khonik\Notifications\Jobs\PushNotification";
-            if (class_exists($pushClassName)) {
-                $chat = $model->chat;
-                $author = auth()->user();
-                $chat->users->where("id", "!=", $model->user_id)->each(function (User $user) use ($model,$pushClassName,$author) {
-                    broadcast(new $pushClassName($user, config('app.name') , "$author->name отправил вам сообщение", "chat_$model->chat_id"));
-                });
-            }
         });
 
         self::updated(function ($model) {
